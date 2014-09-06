@@ -27,7 +27,7 @@ In the Server directory:
 ### Build the Android Application
 
 In Android Studio, open the Project in the 
-```Android/QuakeWatch``` directory. Modify ```build.gradle``` so that it points to wherever your latest Golgi SDK is installed. 
+```Android/Studio/QuakeWatch``` directory. Modify ```build.gradle``` so that it points to wherever your latest Golgi SDK is installed. 
 
 Build the Application and install it on one
 or more Android devices.
