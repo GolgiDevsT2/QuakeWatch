@@ -101,7 +101,7 @@ static AppData *instance = nil;
                                [NSArray arrayWithObjects:
                                 [NSString stringWithString:instanceId],
                                 [NSString stringWithString:quakeLog],
-                                [NSString stringWithFormat:@"%ld", nfnThreshold],
+                                [NSString stringWithFormat:@"%ld", (long)nfnThreshold],
                                 nil]
                                
                                                           forKeys:[NSArray arrayWithObjects:

@@ -42,7 +42,7 @@
 
 - (void)updateThresholdLabel:(NSInteger)threshold
 {
-    [thresholdLabel setText:[NSString stringWithFormat:@"Notification Magnitude Threshold: %ld.0", threshold]];
+    [thresholdLabel setText:[NSString stringWithFormat:@"Notification Magnitude Threshold: %ld.0", (long)threshold]];
 }
 
 - (IBAction)sliderValueChanged:(UISlider *)sender {

@@ -109,7 +109,7 @@ static NSString *getBearingAsString(double lat1, double lng1, double lat2, doubl
     
     NSString *dstr = [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
     
-    NSLog(@"Date: %ld %@", [quakeDetails getTimestamp], dstr);
+    NSLog(@"Date: %ld %@", (long)[quakeDetails getTimestamp], dstr);
     
     NSMutableString *log = [NSMutableString stringWithString:[AppData getQuakeLog]];
     [log appendFormat:@"%@ %d Km %@\n         %@\n", dstr, (int)d, bearing, [quakeDetails getTitle]];
