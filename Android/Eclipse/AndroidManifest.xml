@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.golgi.quakewatch"
+    android:versionCode="1"
+    android:versionName="1.0" >
+    
+  <!--
+      {BEGIN} GOLGI
+    -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <!--
+      {END} GOLGI
+    -->
+    <!--
+       {BEGIN} QuakeWatch
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!--
+       {END} QuakeWatch
+    -->
+    
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        
+        <!--
+          {BEGIN} GOLGI
+        -->
+        <service android:exported="true" android:name="io.golgi.quakewatch.QWService"/>
+        <service android:name="io.golgi.quakewatch.GolgiGCMIntentService" />
+        <receiver
+            android:name="io.golgi.quakewatch.GolgiGCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="io.golgi.example.emigre" />
+            </intent-filter>
+        </receiver>
+        <!--
+          {END} GOLGI
+        -->
+
+
+        <!--
+           {BEGIN} QuakeWatch
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!--
+           {END} QuakeWatch
+        -->
+        
+        <activity
+            android:name=".QWActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
