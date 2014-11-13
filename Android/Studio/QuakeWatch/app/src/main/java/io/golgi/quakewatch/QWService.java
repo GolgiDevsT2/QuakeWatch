@@ -53,10 +53,6 @@ public class QWService extends GolgiService {
         GolgiService.startService(context, QWService.class.getPackage().getName(), QWService.class.getName());
     }
 
-    public static void stopService(Context context){
-        GolgiService.stopService(context, QWService.class.getPackage().getName(), QWService.class.getName());
-    }
-
     private class LocLsnr implements  QWLocationHandler.LocationListener{
         private QuakeDetails qDetails;
 
