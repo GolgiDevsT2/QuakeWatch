@@ -64,6 +64,6 @@ spotless:clean
 RTCP	=	 QuakeWatch.jar:$(PKG_DIR)/common/golgi_j2se.jar:$(LIB_JARS)
 
 run:all 
-	$(JAVA) -classpath $(RTCP) io.golgi.quakewatch.Server -devKey `cat ../Golgi.DevKey` -appKey `cat ../Golgi.AppKey`
+	@echo "Do this: $(JAVA) -classpath $(RTCP) io.golgi.quakewatch.Server -devKey \`cat ../Golgi.DevKey\` -appKey \`cat ../Golgi.AppKey\`"
 
 
