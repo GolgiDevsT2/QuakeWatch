@@ -5,7 +5,6 @@
     <!--
       {BEGIN} GOLGI
     -->
-    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -32,15 +31,16 @@
         <!--
           {BEGIN} GOLGI
         -->
-        <service android:exported="true" android:name="io.golgi.quakewatch.QWService"/>
-        <service android:name="io.golgi.quakewatch.GolgiGCMIntentService" />
+        <meta-data android:value="io.golgi.quakewatch.QWService" android:name="GolgiServiceClassName"/>
+
+        <service android:exported="true" android:name=".QWService"/>
         <receiver
-            android:name="io.golgi.quakewatch.GolgiGCMBroadcastReceiver"
+            android:name="io.golgi.apiimpl.android.GolgiGCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="io.golgi.example.emigre" />
+                <category android:name="io.golgi.quakewatch" />
             </intent-filter>
         </receiver>
         <!--

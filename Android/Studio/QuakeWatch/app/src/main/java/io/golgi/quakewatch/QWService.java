@@ -12,6 +12,7 @@ import com.openmindnetworks.golgi.api.GolgiAPIHandler;
 import java.text.DateFormat;
 import java.util.Date;
 
+import io.golgi.apiimpl.android.GolgiAbstractService;
 import io.golgi.apiimpl.android.GolgiService;
 import io.golgi.quakewatch.gen.GolgiKeys;
 import io.golgi.quakewatch.gen.QuakeDetails;
@@ -21,7 +22,7 @@ import io.golgi.quakewatch.gen.QuakeWatchService.*;
 /**
  * Created by brian on 8/27/14.
  */
-public class QWService extends GolgiService {
+public class QWService extends GolgiAbstractService {
     public static final int MAX_TILES = 100;
     private static Object syncObj = new Object();
     private static QWService theInstance;
@@ -42,19 +43,6 @@ public class QWService extends GolgiService {
         synchronized(syncObj) {
             qwActivity = activity;
         }
-    }
-
-    public static boolean isRunning(Context context) {
-        return  GolgiService.isRunning(context,QWService.class.getName());
-    }
-
-
-    public static void startService(Context context){
-        GolgiService.startService(context, QWService.class.getPackage().getName(), QWService.class.getName());
-    }
-
-    public static void stopService(Context context){
-        GolgiService.stopService(context, QWService.class.getPackage().getName(), QWService.class.getName());
     }
 
     private class LocLsnr implements  QWLocationHandler.LocationListener{
@@ -147,12 +135,10 @@ public class QWService extends GolgiService {
         }
     };
 
-    public void registerGolgi(String id) {
+    @Override
+    public void readyForRegister(){
         quakeAlert.registerReceiver(inboundQuakeAlert);
-        GolgiAPI.getInstance().register(
-                GolgiKeys.DEV_KEY,
-                GolgiKeys.APP_KEY,
-                id,
+        registerGolgi(
                 new GolgiAPIHandler() {
                     @Override
                     public void registerSuccess(){
@@ -169,33 +155,19 @@ public class QWService extends GolgiService {
                             qwActivity.golgiRegistrationComplete(false);
                         }
                     }
-                }
-        );
-    }
-
-
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        theInstance = this;
-        DBG("onStartCommand() called");
-        super.onStartCommand(intent, flags, startId);
-        DBG("onStartCommand() complete");
-
-        String id = QWActivity.getGolgiId(getApplicationContext());
-        registerGolgi(id);
-        DBG("Registering with Golgi as '" + id + "'");
-
-        return START_STICKY;
+                },
+                GolgiKeys.DEV_KEY,
+                GolgiKeys.APP_KEY,
+                QWActivity.getGolgiId(this));
 
     }
+
 
     @Override
     public void onCreate(){
         synchronized(syncObj){
             theInstance = this;
         }
-
         super.onCreate();
         DBG.write("Creating Location Handler");
     }
